@@ -1,0 +1,228 @@
+.root {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  text-align: center;
+  animation: fadeUp 0.5s ease both;
+}
+
+/* icon */
+.iconWrap {
+  position: relative;
+  display: inline-flex;
+  margin-bottom: 20px;
+}
+
+.icon { color: var(--color-rose); }
+
+.sparkle1 {
+  position: absolute;
+  top: -8px;
+  right: -14px;
+  color: var(--color-gold);
+  animation: twinkle 1.4s ease infinite alternate;
+}
+.sparkle2 {
+  position: absolute;
+  bottom: -4px;
+  left: -12px;
+  color: var(--color-rose-light);
+  animation: twinkle 1.8s ease infinite alternate-reverse;
+}
+
+@keyframes twinkle {
+  from { opacity: 0.4; transform: scale(0.9); }
+  to   { opacity: 1;   transform: scale(1.1); }
+}
+
+.title {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  font-weight: 400;
+  color: var(--color-text);
+  margin-bottom: 8px;
+}
+
+.sub {
+  font-size: 0.88rem;
+  color: var(--color-text-muted);
+  margin-bottom: 28px;
+}
+
+/* card */
+.card {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-soft);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  text-align: left;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow-md);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.code {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.detailRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.85rem;
+}
+
+.detailIcon { color: var(--color-rose); flex-shrink: 0; }
+
+.detailLabel {
+  color: var(--color-text-muted);
+  min-width: 60px;
+  font-size: 0.78rem;
+}
+
+.detailValue {
+  color: var(--color-text);
+  font-weight: 500;
+  margin-left: auto;
+  text-align: right;
+}
+
+.divider {
+  height: 1px;
+  background: var(--color-border-soft);
+  margin: 16px 0;
+}
+
+.clientInfo { margin-bottom: 16px; }
+
+.clientName {
+  font-weight: 600;
+  font-size: 0.88rem;
+  margin-bottom: 4px;
+}
+
+.clientContact {
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+.depositBadge {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--color-rose-pale);
+  border: 1px solid var(--color-rose-light);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  font-size: 0.78rem;
+  color: var(--color-rose-dark);
+  font-weight: 600;
+}
+
+.remaining {
+  color: var(--color-text-muted);
+  font-weight: 400;
+}
+
+/* next steps */
+.nextSteps {
+  background: var(--color-bg-soft);
+  border: 1px solid var(--color-border-soft);
+  border-radius: var(--radius-md);
+  padding: 18px 20px;
+  text-align: left;
+  margin-bottom: 24px;
+}
+
+.nextTitle {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: 10px;
+}
+
+.nextList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.nextList li {
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+  padding-left: 16px;
+  position: relative;
+}
+
+.nextList li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--color-rose);
+}
+
+/* actions */
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.extrasSummary {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 10px;
+  padding: 10px 14px;
+  background: var(--color-bg-soft);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-soft);
+}
+
+.extrasLabel {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: 4px;
+}
+
+.extrasItem {
+  font-size: 0.8rem;
+  color: var(--color-text);
+}
+
+/* sign-off */
+.signoff {
+  font-family: var(--font-script);
+  font-size: 1.4rem;
+  color: var(--color-rose);
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

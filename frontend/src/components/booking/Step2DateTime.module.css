@@ -1,0 +1,235 @@
+.root { width: 100%; }
+
+.heading { text-align: center; margin-bottom: 28px; }
+
+.title {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--color-text);
+  margin-bottom: 6px;
+}
+
+.sub {
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+}
+
+/* ── Layout ── */
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 220px;
+  gap: 24px;
+  align-items: start;
+}
+
+/* ── Calendar ── */
+.calendar {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-soft);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+}
+
+.monthNav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.navBtn {
+  background: none;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 5px 8px;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: all var(--transition);
+  display: flex;
+  align-items: center;
+}
+.navBtn:hover:not(:disabled) {
+  border-color: var(--color-rose);
+  color: var(--color-rose);
+}
+.navBtn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.monthLabel {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: 6px;
+}
+
+.weekday {
+  text-align: center;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  padding: 4px 0;
+}
+
+.daysGrid,
+.loadingGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 3px;
+}
+
+.padCell { /* empty */ }
+
+.skeletonCell {
+  height: 38px;
+  border-radius: var(--radius-sm);
+}
+
+.dayCell {
+  position: relative;
+  height: 38px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid transparent;
+  background: none;
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  cursor: default;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2px;
+  transition: all var(--transition);
+}
+
+.dayCellAvailable {
+  color: var(--color-text);
+  cursor: pointer;
+}
+.dayCellAvailable:hover {
+  background: var(--color-rose-pale);
+  border-color: var(--color-rose-light);
+  color: var(--color-rose);
+}
+
+.dayCellDisabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.dayCellSelected {
+  background: var(--color-rose) !important;
+  border-color: var(--color-rose) !important;
+  color: #fff !important;
+}
+
+.dayCellToday:not(.dayCellSelected) {
+  border-color: var(--color-rose-light);
+  font-weight: 600;
+}
+
+.dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--color-rose);
+  flex-shrink: 0;
+}
+.dayCellSelected .dot { background: rgba(255,255,255,0.7); }
+
+.error {
+  color: #D94F4F;
+  font-size: 0.78rem;
+  text-align: center;
+  margin-top: 12px;
+}
+
+/* ── Times panel ── */
+.timesPanel {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-soft);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  min-height: 240px;
+  display: flex;
+  flex-direction: column;
+}
+
+.timesEmpty {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+  text-align: center;
+}
+.timesIcon { color: var(--color-rose-light); }
+
+.timesDate {
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--color-text);
+  margin-bottom: 14px;
+}
+
+.timesGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.timeChip {
+  padding: 9px 6px;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--color-border);
+  background: var(--color-bg);
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--color-text);
+  cursor: pointer;
+  transition: all var(--transition);
+  text-align: center;
+}
+.timeChip:hover {
+  border-color: var(--color-rose);
+  color: var(--color-rose);
+  background: var(--color-rose-pale);
+}
+.timeChipSelected {
+  border-color: var(--color-rose) !important;
+  background: var(--color-rose) !important;
+  color: #fff !important;
+}
+
+/* ── Footer ── */
+.footer {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+}
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+  .timesGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
