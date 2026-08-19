@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { LogOut, RefreshCw, Search, CalendarX, Loader2 } from 'lucide-react'
+import { LogOut, RefreshCw, Search, CalendarX, Loader2, Menu, X } from 'lucide-react'
 import { fetchAdminBookings, fetchAdminStats, unblockSlot } from '../lib/api'
 import AdminStats from '../components/admin/AdminStats'
 import BookingsTable from '../components/admin/BookingsTable'
@@ -28,6 +28,7 @@ export default function AdminPage() {
   const [refreshing,   setRefreshing]   = useState(false)
   const [tab,          setTab]          = useState('Todas')
   const [search,       setSearch]       = useState('')
+  const [sidebarOpen,  setSidebarOpen]  = useState(false)
   const [showBlock,    setShowBlock]    = useState(false)
 
   useEffect(() => {
@@ -90,8 +91,13 @@ export default function AdminPage() {
 
   return (
     <div className={styles.root}>
+      {/* ── Mobile overlay ── */}
+      {sidebarOpen && (
+        <div className={styles.overlay} onClick={() => setSidebarOpen(false)} />
+      )}
+
       {/* ── Sidebar ── */}
-      <aside className={styles.sidebar}>
+      <aside className={`${styles.sidebar} ${sidebarOpen ? styles.sidebarOpen : ''}`}>
         <div className={styles.sidebarLogo}>
           <span className={styles.logoText}>LENART</span>
           <span className={styles.logoSub}>admin</span>
@@ -125,9 +131,20 @@ export default function AdminPage() {
       {/* ── Main ── */}
       <main className={styles.main}>
         <div className={styles.mainHeader}>
-          <div>
-            <h1 className={styles.mainTitle}>Painel</h1>
-            <p className={styles.mainSub}>Gerir marcações e horários</p>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+            {/* Mobile hamburger */}
+            <button
+              type="button"
+              className={styles.hamburger}
+              onClick={() => setSidebarOpen(o => !o)}
+              aria-label="Abrir menu"
+            >
+              {sidebarOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
+            <div>
+              <h1 className={styles.mainTitle}>Painel</h1>
+              <p className={styles.mainSub}>Gerir marcações e horários</p>
+            </div>
           </div>
           <div className={styles.headerActions}>
             <button
