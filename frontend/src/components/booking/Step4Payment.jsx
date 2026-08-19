@@ -8,9 +8,7 @@ import toast from 'react-hot-toast'
 import styles from './Step4Payment.module.css'
 
 const PAYMENT_METHODS = [
-  { id: 'stripe',      label: 'Cartão',      description: 'Visa, Mastercard, American Express', icon: CreditCard  },
-  { id: 'mbway',       label: 'MB WAY',      description: 'Pague com o seu número de telemóvel', icon: Smartphone  },
-  { id: 'multibanco',  label: 'Multibanco',  description: 'Pagamento por referência ATM',        icon: Building2   },
+  { id: 'stripe', label: 'Cartão', description: 'Visa, Mastercard, American Express, MB WAY', icon: CreditCard },
 ]
 
 export default function Step4Payment({ state, onConfirm }) {
