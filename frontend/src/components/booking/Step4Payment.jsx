@@ -35,7 +35,7 @@ export default function Step4Payment({ state, onConfirm }) {
         paymentMethod: method,
       })
 
-      if (method === 'stripe') {
+      if (method === 'stripe' || method === 'mbway') {
         const { url } = await createCheckoutSession(booking.id)
         window.location.href = url
       } else {
