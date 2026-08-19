@@ -63,12 +63,10 @@
   cursor: pointer;
   transition: all var(--transition);
 }
-
 .navItem:hover {
   background: rgba(255,255,255,0.06);
   color: rgba(255,255,255,0.85);
 }
-
 .navItemActive {
   background: rgba(224,159,156,0.2) !important;
   color: var(--color-rose-light) !important;
@@ -145,9 +143,12 @@
 
 .headerActions { display: flex; gap: 10px; }
 
+/* Hidden on desktop, shown on mobile */
 .hamburger {
   display: none;
 }
+
+.refreshBtn {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -266,6 +267,11 @@
   font-size: 0.82rem !important;
 }
 
+/* ── Overlay ── */
+.overlay {
+  display: none;
+}
+
 /* ── Responsive ── */
 @media (max-width: 900px) {
   .sidebar {
@@ -275,18 +281,19 @@
     bottom: 0;
     z-index: 150;
     transition: left 0.25s ease;
-    box-shadow: none;
+    height: 100%;
   }
 
   .sidebarOpen {
-    left: 0;
-    box-shadow: 4px 0 24px rgba(0,0,0,0.25);
+    left: 0 !important;
+    box-shadow: 4px 0 24px rgba(0,0,0,0.3);
   }
 
   .overlay {
+    display: block;
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.4);
+    background: rgba(0,0,0,0.45);
     z-index: 149;
   }
 
@@ -301,10 +308,15 @@
     background: var(--color-bg-card);
     color: var(--color-text);
     cursor: pointer;
+    flex-shrink: 0;
   }
 
   .main {
     max-width: 100%;
     padding: 20px 16px;
+  }
+
+  .searchWrap {
+    width: 100%;
   }
 }
