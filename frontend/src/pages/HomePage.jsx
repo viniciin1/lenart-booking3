@@ -4,6 +4,7 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 import PoliciesSection from '../components/PoliciesSection'
 import ServicesSection from '../components/ServicesSection'
+import GallerySection from '../components/GallerySection'
 import styles from './HomePage.module.css'
 
 export default function HomePage() {
@@ -69,6 +70,9 @@ export default function HomePage() {
 
       {/* ── Services ── */}
       <ServicesSection />
+
+      {/* ── Gallery ── */}
+      <GallerySection />
 
       {/* ── Policies ── */}
       <PoliciesSection />

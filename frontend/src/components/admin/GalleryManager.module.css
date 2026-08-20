@@ -1,0 +1,133 @@
+.root {
+  margin-top: 40px;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-soft);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.title {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--color-text);
+  margin-bottom: 2px;
+}
+
+.sub {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+.uploadBtn {
+  position: relative;
+  cursor: pointer;
+  font-size: 0.75rem !important;
+  padding: 10px 20px !important;
+  gap: 6px;
+}
+
+.fileInput {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Grid ── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.skeletonGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.skeletonItem {
+  aspect-ratio: 1;
+  border-radius: var(--radius-md);
+}
+
+/* ── Item ── */
+.item {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--color-border-soft);
+}
+
+.img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.item:hover .img { transform: scale(1.04); }
+
+.deleteBtn {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.55);
+  border: none;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: all 0.2s ease;
+}
+
+.item:hover .deleteBtn { opacity: 1; }
+.deleteBtn:hover { background: #D94F4F; }
+.deleteBtn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ── Empty ── */
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 48px;
+  color: var(--color-text-muted);
+  text-align: center;
+  font-size: 0.88rem;
+}
+
+.emptyIcon { color: var(--color-rose-light); margin-bottom: 4px; }
+.emptySub  { font-size: 0.78rem; }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+.spinner { animation: spin 0.8s linear infinite; }
+
+@media (max-width: 768px) {
+  .grid, .skeletonGrid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 480px) {
+  .grid, .skeletonGrid { grid-template-columns: repeat(2, 1fr); }
+}

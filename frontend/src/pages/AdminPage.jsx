@@ -5,6 +5,7 @@ import { fetchAdminBookings, fetchAdminStats, unblockSlot } from '../lib/api'
 import AdminStats from '../components/admin/AdminStats'
 import BookingsTable from '../components/admin/BookingsTable'
 import BlockSlotModal from '../components/admin/BlockSlotModal'
+import GalleryManager from '../components/admin/GalleryManager'
 import toast from 'react-hot-toast'
 import styles from './AdminPage.module.css'
 
@@ -206,6 +207,9 @@ export default function AdminPage() {
             </div>
 
             <BookingsTable bookings={filtered} token={token} onRefresh={() => loadData(true)} />
+
+            {/* Gallery manager */}
+            <GalleryManager token={token} />
           </>
         )}
       </main>

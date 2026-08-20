@@ -6,6 +6,7 @@ import availabilityRouter from './routes/availability.js'
 import bookingsRouter     from './routes/bookings.js'
 import paymentsRouter     from './routes/payments.js'
 import adminRouter        from './routes/admin.js'
+import galleryRouter      from './routes/gallery.js'
 
 const app  = express()
 const PORT = process.env.PORT ?? 3001
@@ -25,6 +26,7 @@ app.use('/api/availability', availabilityRouter)
 app.use('/api/bookings',     bookingsRouter)
 app.use('/api/payments',     paymentsRouter)
 app.use('/api/admin',        adminRouter)
+app.use('/api/gallery',      galleryRouter)
 
 // ── Health check ─────────────────────────────────────────────────
 app.get('/api/health', (_req, res) => {

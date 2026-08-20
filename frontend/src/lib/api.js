@@ -30,7 +30,25 @@ export async function createCheckoutSession(bookingId) {
   return data // { url }
 }
 
-// ── Admin ─────────────────────────────────────────────────────────
+// ── Gallery ──────────────────────────────────────────────────────
+export async function fetchGallery() {
+  const { data } = await api.get('/gallery')
+  return data // { images: [...] }
+}
+
+export async function uploadGalleryImage(token, file) {
+  const form = new FormData()
+  form.append('image', file)
+  const { data } = await api.post('/gallery', form, {
+    headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'multipart/form-data' },
+  })
+  return data
+}
+
+export async function deleteGalleryImage(token, id) {
+  const { data } = await api.delete(`/gallery/${id}`, adminHeaders(token))
+  return data
+}
 export async function adminLogin(password) {
   const { data } = await api.post('/admin/login', { password })
   return data // { token }
