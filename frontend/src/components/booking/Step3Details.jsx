@@ -1,10 +1,10 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { format, parseISO } from 'date-fns'
 import { pt } from 'date-fns/locale'
-import { User, Phone, Mail, MessageSquare, Calendar, Clock } from 'lucide-react'
+import { User, Phone, Mail, MessageSquare, Calendar, Clock, ImagePlus, X } from 'lucide-react'
 import styles from './Step3Details.module.css'
 
-const INITIAL = { name: '', phone: '', email: '', notes: '' }
+const INITIAL = { name: '', phone: '', email: '', notes: '', inspirationImage: null }
 
 function validate(fields) {
   const errors = {}
@@ -16,9 +16,11 @@ function validate(fields) {
 }
 
 export default function Step3Details({ service, date, time, initial, onSubmit }) {
-  const [fields, setFields]   = useState(initial ?? INITIAL)
-  const [errors, setErrors]   = useState({})
-  const [touched, setTouched] = useState({})
+  const [fields, setFields]     = useState(initial ?? INITIAL)
+  const [errors, setErrors]     = useState({})
+  const [touched, setTouched]   = useState({})
+  const [preview, setPreview]   = useState(null)
+  const fileInputRef            = useRef(null)
 
   const set = (key, val) => {
     setFields(f => ({ ...f, [key]: val }))
@@ -32,6 +34,27 @@ export default function Step3Details({ service, date, time, initial, onSubmit })
     setTouched(t => ({ ...t, [key]: true }))
     const errs = validate(fields)
     setErrors(e => ({ ...e, [key]: errs[key] }))
+  }
+
+  const handleImage = (e) => {
+    const file = e.target.files[0]
+    if (!file) return
+    if (file.size > 5 * 1024 * 1024) {
+      alert('A imagem não pode ter mais de 5MB.')
+      return
+    }
+    const reader = new FileReader()
+    reader.onload = (ev) => {
+      setPreview(ev.target.result)
+      setFields(f => ({ ...f, inspirationImage: ev.target.result }))
+    }
+    reader.readAsDataURL(file)
+  }
+
+  const removeImage = () => {
+    setPreview(null)
+    setFields(f => ({ ...f, inspirationImage: null }))
+    if (fileInputRef.current) fileInputRef.current.value = ''
   }
 
   const handleSubmit = (e) => {
@@ -147,6 +170,44 @@ export default function Step3Details({ service, date, time, initial, onSubmit })
             onChange={e => set('notes', e.target.value)}
             style={{ resize: 'vertical' }}
           />
+        </div>
+
+        {/* Image upload */}
+        <div className={`input-group ${styles.field}`}>
+          <label className="input-label">
+            <ImagePlus size={11} style={{ marginRight: 4, verticalAlign: 'middle' }} />
+            Imagem de inspiração (opcional)
+          </label>
+
+          {!preview ? (
+            <label className={styles.uploadArea} htmlFor="inspiration-image">
+              <ImagePlus size={24} className={styles.uploadIcon} aria-hidden="true" />
+              <span className={styles.uploadText}>Clique para adicionar uma foto</span>
+              <span className={styles.uploadSub}>JPG, PNG ou WEBP · máx. 5MB</span>
+              <input
+                id="inspiration-image"
+                ref={fileInputRef}
+                type="file"
+                accept="image/jpeg,image/png,image/webp"
+                className={styles.fileInput}
+                onChange={handleImage}
+                aria-label="Carregar imagem de inspiração"
+              />
+            </label>
+          ) : (
+            <div className={styles.previewWrap}>
+              <img src={preview} alt="Imagem de inspiração" className={styles.previewImg} />
+              <button
+                type="button"
+                className={styles.removeImg}
+                onClick={removeImage}
+                aria-label="Remover imagem"
+              >
+                <X size={14} />
+                Remover
+              </button>
+            </div>
+          )}
         </div>
 
         <div className={styles.depositNote}>
