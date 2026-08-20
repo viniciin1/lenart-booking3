@@ -16,8 +16,8 @@ const CLOSED_DAYS = [0, 1] // 0=Domingo, 1=Segunda
 // 09:00 → 11:00 → (almoço removido) → 14:00 → 16:00 → 18:00(só gel polish)
 const BASE_SLOTS        = ['09:00', '11:00', '14:00', '16:00']
 const GEL_POLISH_SLOTS  = ['09:00', '11:00', '14:00', '16:00', '18:00']
-const SATURDAY_BASE     = ['09:00', '11:00', '14:00']
-const SATURDAY_GEL      = ['09:00', '11:00', '14:00', '16:00']
+const SATURDAY_BASE     = ['09:00', '11:00', '14:00', '16:00']
+const SATURDAY_GEL      = ['09:00', '11:00', '14:00', '16:00', '18:00']
 
 // Horários por dia para serviços normais
 const WORK_HOURS = {
