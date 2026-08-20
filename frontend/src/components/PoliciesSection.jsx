@@ -25,7 +25,7 @@ const POLICIES = [
       </svg>
     ),
     title: 'Cancelamentos e Faltas',
-    text: 'Em caso de falta ou cancelamento de última hora, o sinal não é reembolsável e não pode ser aplicado a uma marcação futura.',
+    text: 'Os cancelamentos devem ser feitos com pelo menos 48 horas de antecedência. Em caso de falta ou cancelamento de última hora, o sinal não é reembolsável e não pode ser aplicado a uma marcação futura.',
   },
   {
     id: 'other-techs',
