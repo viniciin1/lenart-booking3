@@ -67,6 +67,64 @@
   cursor: pointer;
 }
 
+/* ── Time chips ── */
+.timesGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.timeChip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 9px 6px;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--color-border);
+  background: var(--color-bg);
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--color-text);
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.timeChip:hover {
+  border-color: var(--color-rose);
+  color: var(--color-rose);
+  background: var(--color-rose-pale);
+}
+.timeChipSelected {
+  border-color: var(--color-rose) !important;
+  background: var(--color-rose) !important;
+  color: #fff !important;
+}
+
+.selectAll {
+  padding: 9px 6px;
+  border-radius: var(--radius-md);
+  border: 1.5px dashed var(--color-border);
+  background: none;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.selectAll:hover {
+  border-color: var(--color-rose-light);
+  color: var(--color-rose);
+}
+
+.selectedCount {
+  font-size: 0.72rem;
+  color: var(--color-rose);
+  margin-top: 6px;
+  font-weight: 500;
+}
+
 .footer {
   display: flex;
   justify-content: flex-end;
