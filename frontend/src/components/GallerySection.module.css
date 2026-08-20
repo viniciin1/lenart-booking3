@@ -1,6 +1,7 @@
 .section {
   padding: 96px 0;
   background: var(--color-bg-soft);
+  overflow: hidden;
 }
 
 .heading {
@@ -16,60 +17,152 @@
   line-height: 1.75;
 }
 
-/* ── Grid ── */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
+/* ── Skeleton ── */
+.skeletonRow {
+  display: flex;
+  height: 460px;
+  gap: 6px;
+  padding: 0 24px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
-
-.skeletonGrid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
-}
-
 .skeletonItem {
-  aspect-ratio: 1;
   border-radius: var(--radius-md);
+  flex: 1;
 }
 
-/* ── Item ── */
-.item {
+/* ── Accordion ── */
+.accordion {
+  display: flex;
+  height: 460px;
+  gap: 6px;
+  padding: 0 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.panel {
   position: relative;
-  aspect-ratio: 1;
+  flex: 1;
   border-radius: var(--radius-md);
   overflow: hidden;
   cursor: pointer;
-  border: none;
-  padding: 0;
-  background: var(--color-border-soft);
-  animation: fadeUp 0.5s ease both;
-  display: block;
+  transition: flex 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+  min-width: 40px;
+  outline: none;
 }
 
-.img {
+.panel:focus-visible {
+  box-shadow: 0 0 0 3px var(--color-rose);
+}
+
+.panelActive {
+  flex: 5;
+  cursor: zoom-in;
+}
+
+.panelImg {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.4s ease;
   display: block;
+  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1), filter 0.4s ease;
+  filter: brightness(0.75);
 }
 
-.item:hover .img {
-  transform: scale(1.06);
+.panelActive .panelImg {
+  filter: brightness(1);
+  transform: scale(1.02);
 }
 
-.overlay {
+.panel:not(.panelActive):hover .panelImg {
+  filter: brightness(0.9);
+}
+
+/* dark overlay on inactive panels */
+.panelOverlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.3), transparent);
-  opacity: 0;
-  transition: opacity 0.3s ease;
+  background: rgba(51, 51, 51, 0.35);
+  transition: background 0.4s ease;
 }
 
-.item:hover .overlay {
-  opacity: 1;
+.panel:not(.panelActive):hover .panelOverlay {
+  background: rgba(51, 51, 51, 0.15);
+}
+
+/* counter badge on active panel */
+.panelBadge {
+  position: absolute;
+  bottom: 16px;
+  left: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.8);
+  animation: fadeIn 0.3s ease;
+}
+
+.badgeDivider {
+  width: 20px;
+  height: 1px;
+  background: rgba(255,255,255,0.5);
+}
+
+/* ── Navigation ── */
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.navBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1.5px solid var(--color-border);
+  background: var(--color-bg-card);
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.navBtn:hover:not(:disabled) {
+  border-color: var(--color-rose);
+  color: var(--color-rose);
+  background: var(--color-rose-pale);
+}
+.navBtn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+.dots {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-border);
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition);
+  padding: 0;
+}
+
+.dotActive {
+  background: var(--color-rose);
+  width: 20px;
+  border-radius: 3px;
 }
 
 /* ── Lightbox ── */
@@ -113,21 +206,24 @@
 }
 .lightboxClose:hover { background: rgba(255,255,255,0.25); }
 
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(16px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
 @keyframes fadeIn {
   from { opacity: 0; }
   to   { opacity: 1; }
 }
 
 /* ── Responsive ── */
-@media (max-width: 1024px) {
-  .grid, .skeletonGrid { grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 768px) {
+  .accordion, .skeletonRow {
+    height: 320px;
+    padding: 0 12px;
+    gap: 4px;
+  }
+  .panel { min-width: 24px; }
+  .panelActive { flex: 4; }
 }
 
-@media (max-width: 640px) {
-  .grid, .skeletonGrid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+@media (max-width: 480px) {
+  .accordion, .skeletonRow {
+    height: 260px;
+  }
 }
