@@ -1,48 +1,42 @@
-import { eachDayOfInterval, startOfMonth, endOfMonth, getDay, format, isBefore, isToday } from 'date-fns'
+import { eachDayOfInterval, startOfMonth, endOfMonth, getDay, format, isBefore } from 'date-fns'
 import { isSlotTaken } from '../data/store.js'
 
 /**
- * Horários de trabalho por dia da semana.
- * 0 = Domingo, 1 = Segunda, 2 = Terça, ... 6 = Sábado
- *
  * Regras:
  * - Domingo (0) e Segunda (1) → fechado
- * - Sem horário de almoço (13:00–14:00 removido)
- * - Intervalos de 2h30 entre marcações
+ * - Intervalo mínimo de 2 horas entre marcações
+ * - Sem almoço (13:00–14:00 removido)
  * - 18:00 apenas para Verniz em Gel
  */
 
-// Horários base (de 2h30 em 2h30, sem almoço)
-const BASE_SLOTS = ['09:00', '11:30', '14:30', '17:00']
+// Dias fechados
+const CLOSED_DAYS = [0, 1] // 0=Domingo, 1=Segunda
 
-// Horários com o slot das 18:00 incluído (apenas Verniz em Gel)
-const GEL_POLISH_SLOTS = ['09:00', '11:30', '14:30', '17:00', '18:00']
+// Horários com 2h de intervalo, sem almoço
+// 09:00 → 11:00 → (almoço removido) → 14:00 → 16:00 → 18:00(só gel polish)
+const BASE_SLOTS        = ['09:00', '11:00', '14:00', '16:00']
+const GEL_POLISH_SLOTS  = ['09:00', '11:00', '14:00', '16:00', '18:00']
+const SATURDAY_BASE     = ['09:00', '11:00', '14:00']
+const SATURDAY_GEL      = ['09:00', '11:00', '14:00', '16:00']
 
-// Dias fechados: 0=Domingo, 1=Segunda
-const CLOSED_DAYS = [0, 1]
-
-// Horários por dia da semana para serviços normais
+// Horários por dia para serviços normais
 const WORK_HOURS = {
-  2: BASE_SLOTS,  // Terça
-  3: BASE_SLOTS,  // Quarta
-  4: BASE_SLOTS,  // Quinta
-  5: BASE_SLOTS,  // Sexta
-  6: ['09:00', '11:30', '14:30'], // Sábado – sem 17:00
+  2: BASE_SLOTS,     // Terça
+  3: BASE_SLOTS,     // Quarta
+  4: BASE_SLOTS,     // Quinta
+  5: BASE_SLOTS,     // Sexta
+  6: SATURDAY_BASE,  // Sábado
 }
 
-// Horários por dia da semana para Verniz em Gel
+// Horários por dia para Verniz em Gel
 const GEL_POLISH_HOURS = {
   2: GEL_POLISH_SLOTS,
   3: GEL_POLISH_SLOTS,
   4: GEL_POLISH_SLOTS,
   5: GEL_POLISH_SLOTS,
-  6: ['09:00', '11:30', '14:30', '17:00'],
+  6: SATURDAY_GEL,
 }
 
-/**
- * Retorna os horários disponíveis para um dado serviço, ano e mês.
- * Devolve: { [dateStr]: string[] }
- */
 export function getMonthAvailability(serviceId, year, month) {
   const today  = new Date()
   const start  = startOfMonth(new Date(year, month - 1, 1))
@@ -58,10 +52,9 @@ export function getMonthAvailability(serviceId, year, month) {
 
     const dow = getDay(day)
 
-    // Dias fechados
+    // Dias fechados (Domingo e Segunda)
     if (CLOSED_DAYS.includes(dow)) continue
 
-    // Selecionar horários conforme serviço
     const slots = isGelPolish
       ? (GEL_POLISH_HOURS[dow] ?? [])
       : (WORK_HOURS[dow] ?? [])
