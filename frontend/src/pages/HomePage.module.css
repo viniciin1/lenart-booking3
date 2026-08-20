@@ -161,7 +161,7 @@
     grid-template-columns: 1fr;
     text-align: center;
     gap: 32px;
-    padding-bottom: 120px;
+    padding-bottom: 40px;
   }
   .heroContent {
     align-items: center;
@@ -175,11 +175,19 @@
   .blob1 { width: 200px; height: 200px; }
   .blob2 { width: 140px; height: 140px; }
   .socialProof {
-    flex-direction: column;
-    gap: 6px;
+    position: relative;
+    bottom: auto;
+    left: auto;
+    transform: none;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
     padding: 12px 20px;
-    bottom: 20px;
-    width: calc(100% - 48px);
+    margin: 0 16px 32px;
+    width: auto;
+    white-space: normal;
+    text-align: center;
   }
   .socialDivider { display: none; }
 }
