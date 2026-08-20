@@ -123,6 +123,8 @@
   white-space: nowrap;
   box-shadow: var(--shadow-sm);
   animation: fadeUp 0.7s ease 0.4s both;
+  max-width: calc(100% - 32px);
+  overflow: hidden;
 }
 
 .igLink {
